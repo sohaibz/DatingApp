@@ -35,8 +35,9 @@ export class AuthService {
   }
 
   getUsername() {
-    if (this.loggedIn())
+    if (this.loggedIn()) {
       return this.jwtHelper.decodeToken(localStorage.getItem('token')).unique_name;
+    }
 
     return '';
   }
