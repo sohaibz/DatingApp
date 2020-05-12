@@ -29,15 +29,17 @@ import { MemberListResolver } from './_resolvers/members-list.resolver';
 import { MembersEditComponent } from './members/members-edit/members-edit.component';
 import { MemberEditResolver } from './_resolvers/members-edit.resolver';
 import { PreventUnSavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
 export function domainGetter(): string {
-  let hostname: string = (new URL(environment.apiUrl)).hostname;
-  let port: string = (new URL(environment.apiUrl)).port;
-  
+  let hostname: string = new URL(environment.apiUrl).hostname;
+  let port: string = new URL(environment.apiUrl).port;
+
   if (port == '') {
     return hostname;
   }
@@ -56,7 +58,8 @@ export function domainGetter(): string {
     MessagesComponent,
     MembersCardComponent,
     MembersDetailComponent,
-    MembersEditComponent
+    MembersEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -70,12 +73,20 @@ export function domainGetter(): string {
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: [domainGetter()],
-      }
+      },
     }),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    FileUploadModule
   ],
-  providers: [AuthService, UserService, ErrorInterceptorProvider, MemberDetailResolver, MemberListResolver, MemberEditResolver, PreventUnSavedChanges],
+  providers: [
+    AuthService,
+    UserService,
+    ErrorInterceptorProvider,
+    MemberDetailResolver,
+    MemberListResolver,
+    MemberEditResolver,
+    PreventUnSavedChanges,
+  ],
   bootstrap: [AppComponent],
 })
-
 export class AppModule {}
