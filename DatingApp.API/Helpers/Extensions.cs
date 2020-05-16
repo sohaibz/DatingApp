@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Helpers
 {
@@ -20,6 +21,21 @@ namespace DatingApp.API.Helpers
                 age--;
 
             return age;
+        }
+
+        public static string ControllerName(this Type controllerType)
+        {
+            Type baseType = typeof(ControllerBase);
+            if (baseType.IsAssignableFrom(controllerType))
+            {
+                int lastControllerIndex = controllerType.Name.LastIndexOf("Controller");
+                if (lastControllerIndex > 0)
+                {
+                    return controllerType.Name.Substring(0, lastControllerIndex);
+                }
+            }
+
+            return controllerType.Name;
         }
     }
 }
