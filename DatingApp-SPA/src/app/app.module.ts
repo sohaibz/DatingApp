@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -13,7 +13,7 @@ import { UserService } from './_services/User.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/Error.Interceptor';
-
+import {TimeAgoPipe} from 'time-ago-pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -48,6 +48,12 @@ export function domainGetter(): string {
   return hostname + ':' + port;
 }
 
+@Pipe({
+  name: 'timeAgo',
+  pure: false
+})
+export class TimeAgoExtendsPipe extends TimeAgoPipe {}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +66,8 @@ export function domainGetter(): string {
     MembersCardComponent,
     MembersDetailComponent,
     MembersEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TimeAgoExtendsPipe
   ],
   imports: [
     BrowserModule,
