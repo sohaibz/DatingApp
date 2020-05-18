@@ -16,6 +16,8 @@ import { ErrorInterceptorProvider } from './_services/Error.Interceptor';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
@@ -32,6 +34,7 @@ import { MemberEditResolver } from './_resolvers/members-edit.resolver';
 import { PreventUnSavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -78,6 +81,8 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     BsDropdownModule.forRoot(),
     NgxGalleryModule,
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
@@ -96,6 +101,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     MemberListResolver,
     MemberEditResolver,
     PreventUnSavedChanges,
+    ListsResolver
   ],
   bootstrap: [AppComponent],
 })
